@@ -33,29 +33,20 @@
             font-weight: bold;
         }
 
-        .error {
-            color: red;
-        }
-
-
-        .error-message {
-            color: red;
-            font-size: 12px;
-            font-weight: 6px;
-        }
-
         span{
             color: red;
             font-size: 12px;
-            font-weight: 6px;
         }
 
         .poor, .password-mismatch {
             color: red;
             font-size: 12px;
-            font-weight: 6px;
         }
 
+        .perfect, .password-match {
+            color: green;
+            font-size: 12px;
+        }
 
         #registerButton {
             background-color: rgb(205, 37, 37);
@@ -73,7 +64,7 @@
         input[type="number"],
         textarea,
         select {
-            width: 96%;
+            width: 80%;
         }
     </style>
 
@@ -86,32 +77,32 @@
             <h3>Registration Form</h3>
             <tr>
                 <td><label for="fname">First Name</label></td>
-                <td><input type="text" id="fname" name="fname" placeholder="Enter FirstName" required></td>
-                <td><span class="error-message" id="fnameError">POOR</span></td>
+                <td><input type="text" id="fname" name="fname" placeholder="Enter FirstName" required onkeyup="checkFieldStrength('fname')">
+                <span class="error-message" id="fnameError">POOR</span></td>
             </tr>
 
             <tr>
                 <td><label for="lname">Last Name</label></td>
-                <td><input type="text" id="lname" name="lname" placeholder="Enter LastName" required></td>
-                <td><span class="error-message" id="lnameError">POOR</span></td>
+                <td><input type="text" id="lname" name="lname" placeholder="Enter LastName"  onkeyup="checkFieldStrength('lname')" required>
+                <span class="error-message" id="lnameError">POOR</span></td>
             </tr>
 
             <tr>
                 <td><label for="mail">Email</label></td>
-                <td><input type="email" id="mail" name="mail" placeholder="abc@gmail.com" required></td>
-                <td><span class="error-message" id="mailError">POOR</span></td>
+                <td><input type="email" id="mail" name="mail" placeholder="abc@gmail.com" onkeyup="checkFieldStrength('mail')" required>
+                <span class="error-message" id="mailError">POOR</span></td>
             </tr>
 
             <tr>
                 <td><label for="pass">Password</label></td>
-                <td><input type="password" id="pass" name="pass" placeholder="Enter your Password" maxlength="12" required></td>
-                <td><span class="error-message" id="passError">POOR</span></td>
+                <td><input type="password" id="pass" name="pass" placeholder="Enter your Password" maxlength="12" onkeyup="checkFieldStrength('pass')" required>
+                <span class="error-message" id="passError">POOR</span></td>
             </tr>
 
             <tr>
                 <td><label for="repass">Re-enter Password</label></td>
-                <td><input type="password" id="repass" name="repass" placeholder="Re-Type Password" maxlength="12" required></td>
-                <td><span class="password-match-indicator" id="repassError">POOR OR MISMATCH</span></td>
+                <td><input type="password" id="repass" name="repass" placeholder="Re-Type Password" maxlength="12" onkeyup="checkPasswordMatch()" required>
+                <span class="password-match-indicator" id="repassError">POOR</span></td>
             </tr>
 
             <tr>
@@ -126,26 +117,26 @@
 
             <tr>
                 <td><label for="age">Age: </label></td>
-                <td><input type="number" id="age" name="age" placeholder="Enter Age" min="0" max="99" value="1"></td>
-                <td><span class="error-message" id="ageError">POOR</span></td>
+                <td><input type="number" id="age" name="age" placeholder="Enter Age" min="0" max="99" value="1" onkeyup="checkFieldStrength('age')">
+                <span class="error-message" id="ageError">POOR</span></td>
             </tr>
 
             <tr>
                 <td><label for="phone">Phone Number: </label></td>
-                <td><input type="number" id="age" name="phone" placeholder="Enter Phone Number" min="10" max="10"></td>
-                <td><span class="error-message" id="numError">POOR</span></td>
+                <td><input type="number" id="phone" name="phone" placeholder="Enter Phone Number" min="10" max="10" onkeyup="checkFieldStrength('phone')">
+                <span class="error-message" id="numError">POOR</span></td>
             </tr>
 
             <tr>
                 <td><label>Address</label></td>
-                <td><textarea></textarea></td>
-                <td><span class="error-message">POOR</span></td>
+                <td><textarea id="address" onkeyup="checkFieldStrength('address')"></textarea>
+                <span class="error-message">POOR</span></td>
             </tr>
 
             <tr>
                 <td><label for="state">State</label></td>
-                <td><input type="text" id="state" name="state" placeholder="Enter State" required></td>
-                <td><span class="error-message" id="stateError">POOR</span></td>
+                <td><input type="text" id="state" name="state" placeholder="Enter State" onkeyup="checkFieldStrength('state')" required>
+                <span class="error-message" id="stateError">POOR</span></td>
             </tr>
 
             <tr>
@@ -192,20 +183,34 @@
 <script>
     function checkFieldStrength(fieldId) {
         const field = document.getElementById(fieldId);
-        const fieldStrengthIndicator = field.parentNode.querySelector('.strength-indicator');
+        const fieldStrengthIndicator = field.parentNode.querySelector('.error-message');
 
         // Reset classes and content
         fieldStrengthIndicator.className = "error-message";
         fieldStrengthIndicator.textContent = "";
 
         // Check field value length and set strength indicator
-        if (field.value.length < 3) {
-            fieldStrengthIndicator.textContent = "POOR";
-            fieldStrengthIndicator.classList.add("poor");
-        } else {
-            fieldStrengthIndicator.textContent = "Perfect";
-            fieldStrengthIndicator.classList.add("perfect");
-        }
+        if (fieldId === "phone") {
+                if (field.value.length === 10) {
+                    fieldStrengthIndicator.textContent = "Perfect";
+                    fieldStrengthIndicator.classList.add("perfect");
+                } 
+                else {
+                    fieldStrengthIndicator.textContent = "INVALID";
+                    fieldStrengthIndicator.classList.add("poor");
+                }
+            }
+            else{
+                // Check field value length and set strength indicator
+                if (field.value.length < 3) {
+                    fieldStrengthIndicator.textContent = "POOR";
+                    fieldStrengthIndicator.classList.add("poor");
+                } 
+                else {
+                    fieldStrengthIndicator.textContent = "Perfect";
+                    fieldStrengthIndicator.classList.add("perfect");
+                }
+            }
     }
 
     function checkPasswordMatch() {
@@ -226,10 +231,7 @@
             passwordMatchIndicator.classList.add("password-mismatch");
         }
     }
-
 </script>
-
-
 
 </body>
 </html>
