@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Task 8</title>
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h3 {
+            color: blue;
+        }
+
+        form{
+            background: linear-gradient(135deg, rgb(236, 220, 156), rgb(209, 99, 167));
+            padding: 50px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            max-width: 800px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        label{
+            font-weight: bold;
+        }
+
+        .error {
+            color: red;
+        }
+
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            font-weight: 6px;
+        }
+
+        span{
+            color: red;
+            font-size: 12px;
+            font-weight: 6px;
+        }
+
+        .poor, .password-mismatch {
+            color: red;
+            font-size: 12px;
+            font-weight: 6px;
+        }
+
+
+        #registerButton {
+            background-color: rgb(205, 37, 37);
+            color: white;
+            padding: 5px 20px;
+            border: 2px solid black;
+            border-radius: 20px;
+            display: block;
+            margin: 20px auto;
+            cursor: pointer;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 96%;
+        }
+    </style>
+
+</head>
+<body>
+<center>
+
+    <form>
+        <table width="600px" cellspacing="8">
+            <h3>Registration Form</h3>
+            <tr>
+                <td><label for="fname">First Name</label></td>
+                <td><input type="text" id="fname" name="fname" placeholder="Enter FirstName" required></td>
+                <td><span class="error-message" id="fnameError">POOR</span></td>
+            </tr>
+
+            <tr>
+                <td><label for="lname">Last Name</label></td>
+                <td><input type="text" id="lname" name="lname" placeholder="Enter LastName" required></td>
+                <td><span class="error-message" id="lnameError">POOR</span></td>
+            </tr>
+
+            <tr>
+                <td><label for="mail">Email</label></td>
+                <td><input type="email" id="mail" name="mail" placeholder="abc@gmail.com" required></td>
+                <td><span class="error-message" id="mailError">POOR</span></td>
+            </tr>
+
+            <tr>
+                <td><label for="pass">Password</label></td>
+                <td><input type="password" id="pass" name="pass" placeholder="Enter your Password" maxlength="12" required></td>
+                <td><span class="error-message" id="passError">POOR</span></td>
+            </tr>
+
+            <tr>
+                <td><label for="repass">Re-enter Password</label></td>
+                <td><input type="password" id="repass" name="repass" placeholder="Re-Type Password" maxlength="12" required></td>
+                <td><span class="password-match-indicator" id="repassError">POOR OR MISMATCH</span></td>
+            </tr>
+
+            <tr>
+                <td><label>Gender: </label></td>
+                <td>
+                    <input type="radio" name="gender" />Male
+                    <br>
+                    <input type="radio" name="gender" />Female
+                </td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td><label for="age">Age: </label></td>
+                <td><input type="number" id="age" name="age" placeholder="Enter Age" min="0" max="99" value="1"></td>
+                <td><span class="error-message" id="ageError">POOR</span></td>
+            </tr>
+
+            <tr>
+                <td><label for="phone">Phone Number: </label></td>
+                <td><input type="number" id="age" name="phone" placeholder="Enter Phone Number" min="10" max="10"></td>
+                <td><span class="error-message" id="numError">POOR</span></td>
+            </tr>
+
+            <tr>
+                <td><label>Address</label></td>
+                <td><textarea></textarea></td>
+                <td><span class="error-message">POOR</span></td>
+            </tr>
+
+            <tr>
+                <td><label for="state">State</label></td>
+                <td><input type="text" id="state" name="state" placeholder="Enter State" required></td>
+                <td><span class="error-message" id="stateError">POOR</span></td>
+            </tr>
+
+            <tr>
+                <td><label>Country</label></td>
+                <td>
+                    <select>
+                        <option>Choose your country</option>
+                        <option>India</option>
+                        <option>Singapore</option>
+                        <option>Nepal</option>
+                        <option>Sri Lanka</option>
+                    </select>
+                </td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td><label>Languages known</label></td>
+                <td>
+                    <input type="checkbox" />English
+                    <input type="checkbox" />Kannada
+                    <input type="checkbox" />Hindi
+                    <input type="checkbox" />Telugu
+                </td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <input type="checkbox" checked required/> Hereby I declare all the given details are true
+                </td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td align="right" colspan="2">Login to <a href="https://ethnus.com/" style="color: purple;">Ethnus</a> website</td>
+                <td></td>
+            </tr>
+        </table>
+        <br>
+        <button id="registerButton" type="submit">Register</button>
+    </form>
+</center>
+<script>
+    function checkFieldStrength(fieldId) {
+        const field = document.getElementById(fieldId);
+        const fieldStrengthIndicator = field.parentNode.querySelector('.strength-indicator');
+
+        // Reset classes and content
+        fieldStrengthIndicator.className = "error-message";
+        fieldStrengthIndicator.textContent = "";
+
+        // Check field value length and set strength indicator
+        if (field.value.length < 3) {
+            fieldStrengthIndicator.textContent = "POOR";
+            fieldStrengthIndicator.classList.add("poor");
+        } else {
+            fieldStrengthIndicator.textContent = "Perfect";
+            fieldStrengthIndicator.classList.add("perfect");
+        }
+    }
+
+    function checkPasswordMatch() {
+        const passField = document.getElementById("pass");
+        const repassField = document.getElementById("repass");
+        const passwordMatchIndicator = repassField.parentNode.querySelector('.password-match-indicator');
+
+        // Reset classes and content
+        passwordMatchIndicator.className = "password-match-indicator";
+        passwordMatchIndicator.textContent = "";
+
+        // Check if passwords match and set match indicator
+        if (passField.value === repassField.value) {
+            passwordMatchIndicator.textContent = "MATCH";
+            passwordMatchIndicator.classList.add("password-match");
+        } else {
+            passwordMatchIndicator.textContent = "MISMATCH";
+            passwordMatchIndicator.classList.add("password-mismatch");
+        }
+    }
+
+</script>
+
+
+
+</body>
+</html>

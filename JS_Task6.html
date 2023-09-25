@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+    <title>JS Task 6</title>
+</head>
+<style>
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+html,body{
+  display: grid;
+  height: 100vh;
+  place-items:center;
+}
+.main_div{
+  width: 365px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.main_div .title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 20px; 
+}
+
+.logo img {
+  width: 180px;
+  margin: 0 auto; 
+  display: block;
+}
+form {
+  margin-top: 25px;
+}
+form .input_box {
+  height: 50px;
+  width: 100%;
+  position: relative;
+  margin-top: 15px;
+}
+.input_box input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  padding-left: 45px;
+  font-size: 17px;
+  transition: all 0.3s ease;
+}
+.input_box input:focus {
+  border-color: #245fb7;
+}
+.input_box .icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: grey;
+  background-color: lightgray; 
+  padding: 14px; 
+  border-radius: 5px; 
+}
+form .option_div {
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.option_div .check_box {
+  display: flex;
+  align-items: center;
+}
+.option_div span {
+  margin-left: 5px;
+  font-size: 16px;
+  color: #333;
+}
+.option_div .forget_div a {
+  font-size: 16px;
+  color: #245fb7;
+}
+
+.button input {
+  padding-left: 0;
+  background: #245fb7;
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s linear;
+  width: 100%; 
+}
+.button input:hover {
+  background: #245fb7;
+}
+
+.sign_up {
+  text-align: center;
+  margin-top: 15px; 
+  font-size: 16px; 
+}
+.sign_up a {
+  color: #245fb7;
+  text-decoration: none;
+}
+form a:hover {
+  text-decoration: underline;
+}
+</style>
+
+<body>
+<div class="main_div">
+    <div class="logo">
+        <img src="./img/instagram.png" alt="Instagram Logo"> 
+    </div>
+    <form action="#">
+        <div class="input_box">
+            <input type="text" placeholder="  Username" required>
+            <div class="icon"><i class="fas fa-user"></i></div>
+        </div>
+        <div class="input_box">
+            <input type="password" placeholder="  Password" required>
+            <div class="icon"><i class="fas fa-lock"></i></div>
+        </div>
+        <div class="input_box button">
+            <input type="submit" value="Login">
+        </div>
+        <br>
+        <div class="option_div">
+            <div class="check_box">
+                <input type="checkbox">
+                <span>Remember me</span>
+            </div>
+            <div class="forget_div">
+                <a href="#">Forgot password?</a>
+            </div>
+        </div>
+        <br>
+        <div class="sign_up">
+            Don't have an account! <a href="#">Sign up here.</a>
+        </div>
+    </form>
+</div>
+<script>
+    //validating UserID and Password
+    document.addEventListener("DOMContentLoaded", function () {
+        const loginForm = document.getElementById("loginForm");
+        const userIdInput = document.getElementById("userId");
+        const passwordInput = document.getElementById("password");
+    
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+    
+            const userId = userIdInput.value.trim();
+            const password = passwordInput.value;
+    
+            //Can give any validation logic
+            if (userId === "" || password === "") {
+                alert("Please enter both User ID and Password.");
+                return;
+            }
+
+            console.log("User ID: " + userId);
+            console.log("Password: " + password);
+            alert("Login successful!");
+        });
+    });
+    </script>
+
+</body>
+</html>

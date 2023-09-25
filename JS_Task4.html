@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Task 4</title>
+</head>
+<body>
+    <h1>Date and Time</h1>
+    <button onclick="showDate()">Show Date</button>
+    <p id="dateResult"></p>
+
+    <button onclick="showTime()">Show Time</button>
+    <p id="timeResult"></p>
+
+    <script>
+        function showDate() {
+            const dateResultElement = document.getElementById("dateResult");
+            const currentDate = new Date();
+            const formattedDate = currentDate.toLocaleDateString();
+            dateResultElement.textContent = `Current Date: ${formattedDate}`;
+        }
+
+        function showTime() {
+            const timeResultElement = document.getElementById("timeResult");
+            const currentTime = new Date();
+            const options = {
+                timeZoneName: "short",
+                timeZone: "Asia/Kolkata", // IST (Indian Standard Time) timezone
+            };
+            const formattedTime = currentTime.toLocaleString("en-US", options);
+            timeResultElement.textContent = `Current Time (Indian Standard Time): ${formattedTime}`;
+        }
+    </script>
+</body>
+</html>
